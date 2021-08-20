@@ -25,7 +25,7 @@ namespace WebApplication.Controllers
         public async Task<ActionResult<int>> CalculateFibonacci(int index = 0)
         {
             int iv = index;
-            System.Diagnostics.Activity.Current.AddTag("parameter", iv.ToString());
+           // System.Diagnostics.Activity.Current.AddTag("parameter.index", iv.ToString()); // add custom field to span
           
             var client = _clientFactory.CreateClient();
             if (iv == 0) {
@@ -41,6 +41,7 @@ namespace WebApplication.Controllers
               resTwo.EnsureSuccessStatusCode();
               var resultOne = await resOne.Content.ReadAsStringAsync();
               var resultTwo = await resTwo.Content.ReadAsStringAsync();
+              // can you make a custom span around this important calculation?
               var finalResult = Int32.Parse(resultOne) + Int32.Parse(resultTwo);
               return finalResult;
             }
